@@ -19,10 +19,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('bobot_kriteria') }}" class="nav-link">
+                    <a href="{{ url('kriteriabobot') }}" class="nav-link">
                         <i class="nav-icon fas fa-cube"></i>
                         <p>
                             Kriteria & Bobot
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('alternatif') }}" class="nav-link">
+                        <i class="nav-icon fas fa-cube"></i>
+                        <p>
+                            Alternatif
                         </p>
                     </a>
                 </li>

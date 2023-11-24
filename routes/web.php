@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlternatifController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\DashboardController as ControllersDashboardController;
@@ -33,7 +34,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::resources([
-    'kriteriabobot' => KriteriadanBobotController::class
+    'kriteriabobot' => KriteriadanBobotController::class,
+    'alternatif' => AlternatifController::class
 ]);
 Route::get('kriteriabobot/{kriteriabobot}/edit', [KriteriadanBobotController::class, 'edit'])->name('kriteriabobot.edit');
 

@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\DashboardController as ControllersDashboardController;
 use App\Http\Controllers\LayoutsController;
+use GuzzleHttp\Middleware;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +19,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('layouts', [LayoutsController::class, 'index']);
+Auth::routes();
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/logout',[LoginController::class,'logout']);
+Route::get('/login',[LoginController::class,'login'])->name('login');
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+

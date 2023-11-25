@@ -4,6 +4,7 @@ use App\Http\Controllers\AlternatifController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\DashboardController as ControllersDashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KriteriadanBobotController;
 use App\Http\Controllers\LayoutsController;
 use App\Models\KriteriadanBobot;
@@ -23,21 +24,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-// Auth::routes();
+Route::get('/logout', [LoginController::class, 'logout']);
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Route::get('/logout',[LoginController::class,'logout']);
-// Route::get('/login',[LoginController::class,'login'])->name('login');
+Auth::routes();
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [HomeController::class, 'index']);
+    Route::resources([
+        'kriteriabobot' => KriteriadanBobotController::class,
+        'alternatif' => AlternatifController::class
+    ]);
+    Route::get('kriteriabobot/{kriteriabobot}/edit', [KriteriadanBobotController::class, 'edit'])->name('kriteriabobot.edit');
+});
 
-Route::resources([
-    'kriteriabobot' => KriteriadanBobotController::class,
-    'alternatif' => AlternatifController::class
-]);
-Route::get('kriteriabobot/{kriteriabobot}/edit', [KriteriadanBobotController::class, 'edit'])->name('kriteriabobot.edit');
+Route::fallback(function () {
+    return redirect('/login');
+});
+
+
 
 
 

@@ -59,7 +59,7 @@ class KriteriadanBobotController extends Controller
      */
     public function show(KriteriadanBobot $kriteriadanBobot)
     {
-        //
+       //
     }
 
     /**
@@ -68,11 +68,11 @@ class KriteriadanBobotController extends Controller
      * @param  \App\Models\KriteriadanBobot  $kriteriadanBobot
      * @return \Illuminate\Http\Response
      */
-    public function edit(KriteriadanBobot $kriteriadanbobot)
+    public function edit($kriteriadanbobot)
 {
+    $kriteriadanbobot = KriteriadanBobot::where('kode_kriteria', 'C' . $kriteriadanbobot)->get()[0];
     return view('kriteriadanbobot.edit', compact('kriteriadanbobot'));
 }
-
 
 
 
@@ -105,12 +105,10 @@ class KriteriadanBobotController extends Controller
      * @param  \App\Models\KriteriadanBobot  $kriteriadanBobot
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KriteriadanBobot $kriteriadanbobot)
+    public function destroy($kriteriadanbobot)
     {
-        $kriteriadanbobot->delete();
-
-        return redirect()->route('kriteriabobot.index')
-                ->with('success', 'Kriteria deleted successfully');
+            KriteriadanBobot::destroy($kriteriadanbobot);
+            return redirect()->route('kriteriabobot.index')->with('success', 'Kriteria deleted successfully');
 
     }
 }

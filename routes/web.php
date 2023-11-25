@@ -42,6 +42,16 @@ Route::fallback(function () {
 });
 
 
+<<<<<<< HEAD
+Route::resources([
+    'kriteriabobot' => KriteriadanBobotController::class,
+    'alternatif' => AlternatifController::class
+]);
+
+// Route::get('/kriteriabobot/{kriteriadanbobot}/edit', 'KriteriaDanBobotController@edit');
+// Route::delete('/kriteriabobot/{kriteriadanbobot}', 'KriteriaDanBobotController@destroy');
+=======
+>>>>>>> 789c8dd69813dd9a9365712e76c627c8799bb607
 
 
 

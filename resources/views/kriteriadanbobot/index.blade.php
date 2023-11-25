@@ -49,15 +49,15 @@
                                         <td>{{ $c->bobot }}</td>
                                         <td>{{ $c->kriteria }}</td>
                                         <td>
-                                            <span data-toggle="tooltip" data-placement="bottom" title="Edit Data">
-                                                <a href="{{ url('kriteriabobot/'.$c->id.'/edit') }}" class="btn btn-primary">
-                                                    <span class="fa fa-edit"></span>
-                                                </a>                                                
-                                            </span>
-                                            <span data-toggle="tooltip" data-placement="bottom" title="Hapus Data">
-                                                <form action="{{ url('kriteriabobot/'.$c->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
+                                            <form action="{{ url('kriteriabobot/'.$c->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <span data-toggle="tooltip" data-placement="bottom" title="Edit Data">
+                                                    <a href="{{ url('kriteriabobot/'.$c->id.'/edit') }}" class="btn btn-primary">
+                                                        <span class="fa fa-edit"></span>
+                                                    </a>                                                
+                                                </span>
+                                                <span data-toggle="tooltip" data-placement="bottom" title="Hapus Data">
                                                     <button type="submit" class="btn btn-danger">
                                                         <span class="fa fa-trash-alt"></span>
                                                     </button>

@@ -54,10 +54,10 @@ class AlternatifController extends Controller
      * @param  \App\Models\alternatif  $alternatif
      * @return \Illuminate\Http\Response
      */
-    public function show(alternatif $alternatif)
-    {
-        //
-    }
+    // public function show(alternatif $alternatif)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.

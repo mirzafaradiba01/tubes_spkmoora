@@ -25,7 +25,7 @@
                                 </button>
                             </div>
                             @endif
-                            <a href="{{route('alternatif.create')}}" class='btn btn-primary'>
+                            <a href="{{ route('alternatif.create') }}" class='btn btn-primary'>
                                 <span class='fa fa-plus'></span> Tambah Alternatif
                             </a>
                             <br>
@@ -38,20 +38,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                    $i = 0;
+                                    @endphp
                                     @foreach ($alternatif as $a)
                                     <tr>
                                         <td>{{ ++$i }}</td>
-                                        <td>{{ $a->nama}}</td>
+                                        <td>{{ $a->nama }}</td>
                                         <td>
-                                            <form action="{{ route('alternatif.destroy',$a->id) }}" method="POST">
+                                            <form action="{{ route('alternatif.destroy', $a->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <span data-toggle="tooltip" data-placement="bottom" title="Edit Data">
-                                                    <a href="{{ route('alternatif.edit',$a->id) }}"
-                                                        class="btn btn-primary"><span class="fa fa-edit"></span>
+                                                <span data-toggle="tooltip" data-placement="bottom"
+                                                    title="Edit Data">
+                                                    <a href="{{ route('alternatif.edit', $a->id) }}"
+                                                        class="btn btn-primary"><span
+                                                            class="fa fa-edit"></span>
                                                     </a>
                                                 </span>
-                                                <span data-toggle="tooltip" data-placement="bottom" title="Hapus Data">
+                                                <span data-toggle="tooltip" data-placement="bottom"
+                                                    title="Hapus Data">
                                                     <button type="submit" class="btn btn-danger">
                                                         <span class="fa fa-trash-alt"></span>
                                                     </button>
@@ -70,19 +76,23 @@
     </div>
 </div>
 @endsection
+
 @section('script')
+
+
 <script>
-    $(function () {
+  $(function () {
         $('[data-toggle="tooltip"]').tooltip()
         $('#mytable').DataTable({
             "paging": true,
             "lengthChange": false,
             "searching": false,
-            "ordering": true,
+            "ordering":false,
             "info": true,
             "autoWidth": false,
             "responsive": true,
         });
     });
+
 </script>
 @endsection

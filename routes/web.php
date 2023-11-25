@@ -37,7 +37,9 @@ Route::resources([
     'kriteriabobot' => KriteriadanBobotController::class,
     'alternatif' => AlternatifController::class
 ]);
-Route::get('kriteriabobot/{kriteriabobot}/edit', [KriteriadanBobotController::class, 'edit'])->name('kriteriabobot.edit');
+
+// Route::get('/kriteriabobot/{kriteriadanbobot}/edit', 'KriteriaDanBobotController@edit');
+// Route::delete('/kriteriabobot/{kriteriadanbobot}', 'KriteriaDanBobotController@destroy');
 
 
 

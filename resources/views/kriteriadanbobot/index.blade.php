@@ -45,7 +45,7 @@
                                     <tr>
                                         <td>{{ ++$i }}</td>
                                         <td>{{ $c->kode_kriteria}}</td>
-                                        <td>{{ $c->jenis}}</td>
+                                        <td>{{ $c->jenis_kriteria}}</td>
                                         <td>{{ $c->bobot}}</td>
                                         <td>{{ $c->kriteria}}</td>
                                         <td>

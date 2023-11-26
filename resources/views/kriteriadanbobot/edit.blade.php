@@ -27,7 +27,7 @@
                                 </ul>
                             </div>
                             @endif
-                            <form action="{{url('kriteriabobot/'.$kriteriadanbobot->id) }}" method="POST">
+                            <form action="{{ route('kriteriabobot.update', $kriteriadanbobot->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">

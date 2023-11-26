@@ -68,11 +68,14 @@ class KriteriadanBobotController extends Controller
      * @param  \App\Models\KriteriadanBobot  $kriteriadanBobot
      * @return \Illuminate\Http\Response
      */
-    public function edit($kriteriadanbobot)
-{
-    $kriteriadanbobot = KriteriadanBobot::where('kode_kriteria', 'C' . $kriteriadanbobot)->get()[0];
-    return view('kriteriadanbobot.edit', compact('kriteriadanbobot'));
-}
+    public function edit($id)
+    {
+        $kriteriadanbobot = KriteriadanBobot::findOrFail($id);
+
+        return view('kriteriadanbobot.edit', compact('kriteriadanbobot'));
+
+    }
+    
 
 
 
@@ -83,19 +86,26 @@ class KriteriadanBobotController extends Controller
      * @param  \App\Models\KriteriadanBobot  $kriteriadanBobot
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, KriteriadanBobot $kriteriadanbobot)
+    public function update(Request $request,$id)
     {
-        $request->validate([
-            'kode_kriteria' => 'required',
-            'kriteria' => 'required',
-            'bobot' => 'required',
-            'jenis_kriteria' => 'required',
-        ]);
+        logger($request->all());
 
-        $kriteriadanbobot->update($request->all());
+    $request->validate([
+        'kode_kriteria' => 'required',
+        'jenis_kriteria' => 'required',
+        'bobot' => 'required',
+        'kriteria' => 'required',
+    ]);
 
-        return redirect()->route('kriteriabobot.index')
-                ->with('success', 'Kriteria updated successfully');
+    $kriteriadanbobot = KriteriadanBobot::findOrFail($id);
+
+    $kriteriadanbobot->update($request->all());
+
+    return redirect()->route('kriteriabobot.index')
+                    ->with('success','Criteria updated successfully');
+
+
+                
 
     }
 

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\alternatif;
 use App\Models\Modelalternatif;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\CssSelector\Node\FunctionNode;
+use Yajra\DataTables\Facades\DataTables;
 
 class AlternatifController extends Controller
 {
@@ -13,10 +16,20 @@ class AlternatifController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function data()
     {
-        $alternatif = Modelalternatif::get();
-        return view('alternatif.index', compact('alternatif'))->with('i',0);
+        $data = Modelalternatif::selectRaw('id, nama');
+
+        return DataTables::of($data)
+                ->addIndexColumn()
+                ->make(true);
+    }
+    
+     public function index()
+    {
+        // $alternatif = Modelalternatif::get();
+        // return view('alternatif.index', compact('alternatif'))->with('i',0);
+        return view('alternatif.index');
     }
 
     /**
@@ -39,14 +52,18 @@ class AlternatifController extends Controller
     {
         $request->validate([
             'nama' => 'required'
-           
         ]);
 
-        Modelalternatif::create($request->all());
+        $alternatif = Modelalternatif::create(['nama' => $request->nama]);
 
-        return redirect()->route('alternatif.index')
-                ->with('success', 'Alternatif created successfully');
+        // Return JSON response with redirect URL
+        return response()->json([
+            'status' => true,
+            'message' => 'Alternatif created successfully',
+            'redirect' => route('alternatif.index')
+        ]);
     }
+
 
     /**
      * Display the specified resource.
@@ -65,11 +82,13 @@ class AlternatifController extends Controller
      * @param  \App\Models\alternatif  $alternatif
      * @return \Illuminate\Http\Response
      */
-    public function edit(Modelalternatif $alternatif)
+    public function edit($id)
     {
         
-        $alternatifscores = Modelalternatif::where('nama', $alternatif->id)->get();
-        return view('alternatif.edit', compact('alternatif'));
+        $alternatif = Modelalternatif::find($id);
+        return view('alternatif.index')
+            ->with('alt', $alternatif)
+            ->with('url_form', url('/alternatif/'.$id));
     }
 
     /**
@@ -79,17 +98,30 @@ class AlternatifController extends Controller
      * @param  \App\Models\alternatif  $alternatif
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Modelalternatif $alternatif)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama' => 'required'
-            
+        $rule = [
+            'nama' => 'required|string',
+        ];
+
+        $validator = Validator::make($request->all(), $rule);
+        if($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'modal_close' => false,
+                'message' => 'Data gagal diedit. ' .$validator->errors()->first(),
+                'data' => $validator->errors()
+            ]);
+        }
+
+        $alternatif = Modelalternatif::where('id', $id)->update($request->except('_token', '_method'));
+
+        return response()->json([
+            'status' => ($alternatif),
+            'modal_close' => $alternatif,
+            'message' => ($alternatif)? 'Data berhasil diedit' : 'Data gagal diedit',
+            'data' => null
         ]);
-
-        $alternatif->update($request->all());
-
-        return redirect()->route('alternatif.index')
-                        ->with('success','Criteria updated successfully');
     }
     
 
@@ -100,14 +132,35 @@ class AlternatifController extends Controller
      * @param  \App\Models\alternatif  $alternatif
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Modelalternatif $alternatif)
+    public function destroy($id)
     {
-        $scores = Modelalternatif::where('nama', $alternatif->id)->delete();
-        $alternatif->delete();
+        $alternatif = Modelalternatif::find($id);
 
-        return redirect()->route('alternatif.index')
-            ->with('success', 'alternatif deleted successfully');
+        if (!$alternatif) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data not found',
+                'data' => null
+            ]);
+        }
+
+        $deleted = $alternatif->delete();
+
+        if ($deleted) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data berhasil dihapus',
+                'data' => null
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data gagal dihapus',
+                'data' => null
+            ]);
+        }
     }
+
 }
     
 

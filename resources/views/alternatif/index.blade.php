@@ -116,7 +116,7 @@
             $('#confirmDelete').off().on('click', function() {
                 $.ajax({
                     url: '{{ url('alternatif/delete') }}' + '/' + element,
-                    method: 'POST',
+                    method: 'GET',
                     dataType: 'json',
                     data: {
                         "_token": "{{ csrf_token() }}",

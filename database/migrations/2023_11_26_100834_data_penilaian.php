@@ -18,9 +18,9 @@ class DataPenilaian extends Migration
             $table->unsignedBigInteger('id_alternatif'); // Assuming it's an unsigned big integer
             $table->unsignedBigInteger('id_kriteria'); // Assuming it's an unsigned big integer
             $table->float('skor');
-            $table->timestamps();
             $table->foreign('id_alternatif')->references('id')->on('alternatif')->onDelete('cascade');
             $table->foreign('id_kriteria')->references('id')->on('kriteriadan_bobot')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

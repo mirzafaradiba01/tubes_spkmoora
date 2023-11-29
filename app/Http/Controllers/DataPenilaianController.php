@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataPenilaian;
+use App\Models\Modelalternatif;
 use Illuminate\Http\Request;
 
 class DataPenilaianController extends Controller
@@ -14,8 +15,9 @@ class DataPenilaianController extends Controller
      */
     public function index()
     {
-        $penilaian = DataPenilaian::get();
-        return view('penilaian.index', compact('penilaian'))->with('i', 0);
+        $alternatif= Modelalternatif::get();
+        $datapenilaian = DataPenilaian::get();
+        return view('penilaian.index', compact('alternatif','datapenilaian'))->with('i', 0);
     }
 
     /**
@@ -25,7 +27,7 @@ class DataPenilaianController extends Controller
      */
     public function create()
     {
-        //
+        return view('penilaian.tambah');
     }
 
     /**
@@ -36,7 +38,16 @@ class DataPenilaianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'id_alternatif' => 'required',
+            'id_kriteria' => 'required',
+            'skor' => 'required',
+        ]);
+
+        DataPenilaian::create($request->all());
+
+        return redirect()->route('datapenilaian.index')
+                ->with('success', 'Kriteria created successfully');
     }
 
     /**

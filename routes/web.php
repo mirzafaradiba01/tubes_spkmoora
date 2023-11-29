@@ -4,6 +4,7 @@ use App\Http\Controllers\AlternatifController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\DashboardController as ControllersDashboardController;
+use App\Http\Controllers\DataPenilaianController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KriteriadanBobotController;
 use App\Http\Controllers\LayoutsController;
@@ -35,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resources([
         'kriteriabobot' => KriteriadanBobotController::class,
         'alternatif' => AlternatifController::class,
+        'datapenilaian' => DataPenilaianController::class,
     ]);
 
 

@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::post('alternatif/data', [AlternatifController::class, 'data'])->name('alternatif.data'); // Menambahkan rute untuk DataTables
+    Route::post('datapenilaian/data', [DataPenilaianController::class, 'data'])->name('datapenilaian.data');
     Route::get('alternatif/delete/{id}', [AlternatifController::class, 'destroy'])->name('alternatif.delete'); // Rute untuk menghapus data
     Route::get('kriteriabobot/{kriteriabobot}/edit', [KriteriadanBobotController::class, 'edit'])->name('kriteriabobot.edit');
 });

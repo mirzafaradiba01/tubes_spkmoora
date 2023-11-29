@@ -34,7 +34,14 @@
                         </p>
                     </a>
                 </li>
-                
+                <li class="nav-item">
+                    <a href="{{ url('datapenilaian') }}" class="nav-link">
+                        <i class="nav-icon fas fa-cube"></i>
+                        <p>
+                            Data Penilaian
+                        </p>
+                    </a>
+                </li>
                
             </ul>
         </nav>

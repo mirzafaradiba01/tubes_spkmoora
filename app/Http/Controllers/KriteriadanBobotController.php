@@ -23,6 +23,15 @@ class KriteriadanBobotController extends Controller
                 ->make(true);
     }
 
+    public function penilaian()
+    {
+        $data = KriteriadanBobot::selectRaw('id, kode_kriteria');
+
+        return DataTables::of($data)
+                ->addIndexColumn()
+                ->make(true);
+    }
+
      public function index()
     {
         // $kriteriadanbobot = KriteriadanBobot::get();
@@ -49,7 +58,7 @@ class KriteriadanBobotController extends Controller
     public function store(Request $request)
     {
         $rule= [
-            'kode_kriteria' => 'required|string|unique:kriteriadanbobot, kode_kriteria',
+            'kode_kriteria' => 'required|string|unique:kriteriadan_bobot,kode_kriteria',
             'jenis_kriteria' => 'required|in:Benefit,Cost',
             'bobot' => 'required',
             'kriteria' => 'required|string',

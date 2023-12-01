@@ -41,7 +41,7 @@
 
     <!-- Bagian Form pada file index -->
     <div class="modal fade" id="modal_kriteria" style="display: none;" aria-hidden="true">
-        <form method="post" action="{{ url('kriteriadanbobot') }}" role="form" class="form-horizontal" id="form_kriteria">
+        <form method="post" action="{{ url('kriteriabobot') }}" role="form" class="form-horizontal" id="form_kriteria">
             @csrf
             <div class="modal-dialog modal-">
                 <div class="modal-content">
@@ -63,10 +63,12 @@
                         <div class="form-group required row mb-2">
                             <label class="col-sm-2 control-label col-form-label">Tipe</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control form-control-sm" id="jenis_kriteria" name="jenis_kriteria"
-                                    value="" />
+                                <select class="form-control form-control-sm" id="jenis_kriteria" name="jenis_kriteria">
+                                    <option value="benefit">Benefit</option>
+                                    <option value="cost">Cost</option>
+                                </select>
                             </div>
-                        </div>
+                        </div>                        
                         <div class="form-group required row mb-2">
                             <label class="col-sm-2 control-label col-form-label">Bobot</label>
                             <div class="col-sm-10">
@@ -117,10 +119,10 @@
         function tambahData() {
             $('#modal_kriteria').modal('show');
             $('#modal_kriteria .modal-title').html('Tambah Data Kriteria dan Bobot');
-            $('#form_kriteria').attr('action', '{{ url('kriteriadanbobot') }}'); // Ganti URL sesuai dengan operasi tambah
+            $('#form_kriteria').attr('action', '{{ url('kriteriabobot') }}'); // Ganti URL sesuai dengan operasi tambah
             $('#form_kriteria').find('input[name="_method"]').remove(); // Hapus _method jika ada
             $('#modal_kriteria #kode_kriteria').val('');
-            $('#modal_kriteria #jenis_kriteria').val('');
+            $('#modal_kriteria #jenis_kriteria').val('benefit');
             $('#modal_kriteria #bobot').val('');
             $('#modal_kriteria #kriteria').val('');
         }
@@ -128,7 +130,7 @@
         function updateData(th) {
             $('#modal_kriteria').modal('show');
             $('#modal_kriteria .modal-title').html('Edit Data Kriteria dan Bobot');
-            $('#form_kriteria').attr('action', '{{ url('kriteriadanbobot') }}' + '/' + $(th).data(
+            $('#form_kriteria').attr('action', '{{ url('kriteriabobot') }}' + '/' + $(th).data(
                 'id')); // Ganti URL sesuai dengan operasi edit
             $('#form_kriteria').append(
                 '<input type="hidden" name="_method" value="PUT">'); // Tambahkan _method sebagai PUT
@@ -143,7 +145,7 @@
 
             $('#confirmDelete').off().on('click', function() {
                 $.ajax({
-                    url: '{{ url('kriteriadanbobot/delete') }}' + '/' + element,
+                    url: '{{ url('kriteriabobot/delete') }}' + '/' + element,
                     method: 'GET',
                     dataType: 'json',
                     data: {
@@ -166,7 +168,7 @@
                 serverside: true,
                 stateSave: true,
                 ajax: {
-                    'url': '{{ url('kriteriadanbobot/data') }}',
+                    'url': '{{ url('kriteriabobot/data') }}',
                     'dataType': 'json',
                     'type': 'POST',
                 },
@@ -199,17 +201,16 @@
                         name: 'kriteria',
                         sortable: false,
                         searchable: true
-                    }
+                    },
                     {
                         data: 'id',
                         name: 'id',
                         sortable: false,
                         searchable: false,
                         render: function(data, type, row, meta) {
-                            var btn = `<button data-url="{{ url('/kriteriadanbobot')}}/` + data +
+                            var btn = `<button data-url="{{ url('/kriteriabobot')}}/` + data +
                                 `" class="btn btn-xs btn-warning mr-2 ml-2" onclick="updateData(this)" data-id="` +
-                                row.id + `" data-kode_kriteria="` + row.kode_kriteria + `" data-jenis_kriteria="` + row.jenis_kriteria + `" data-bobot="` + row.bobot + `" data-kriteria="` + row.kriteria
-                                `"><i class="fa fa-edit"></i>Edit</button>` +
+                                row.id + `" data-kode_kriteria="` + row.kode_kriteria + `" data-jenis_kriteria="` + row.jenis_kriteria + `" data-bobot="` + row.bobot + `" data-kriteria="` + row.kriteria +`"><i class="fa fa-edit"></i>Edit</button>` +
                                 `<button class="btn btn-xs btn-danger" onclick="deleteData(` +
                                 data + `)"><i class="fa fa-trash mr-2 ml-2"></i>Hapus</button>`;
                             return btn;

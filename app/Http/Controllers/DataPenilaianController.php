@@ -18,6 +18,7 @@ class DataPenilaianController extends Controller
      */
     public function data(){
         $data = Modelalternatif::selectRaw('id, nama');
+       
         return DataTables::of($data)
                 ->addIndexColumn()
                 ->make(true);
